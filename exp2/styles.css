@@ -1,0 +1,12 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-image: url('https://resize.indiatvnews.com/en/resize/newbucket/400_-/2022/12/oppenheimer-1670924274.jpg'); 
+    background-size: cover;
+    background-position: center;
+    color: white;
+    height: 100vh;
+}
+
+

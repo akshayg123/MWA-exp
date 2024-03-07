@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking page</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('https://static0.gamerantimages.com/wordpress/wp-content/uploads/2022/03/fortnite-armored-battle-bus.jpeg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            height: 100vh;
+        }
+
+        nav {
+            background-color: #333;
+            overflow: hidden;
+        }
+
+        nav a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .container_login {
+            max-width: 500px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 20px 0;
+            display: inline-block;
+            border: none;
+            background: #f1f1f1;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: #4caf50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        input[type="reset"]
+        {
+            background-color: blue;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;   
+        }
+        input[type="reset"]:hover
+        {
+            background-color: #4546a0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#booking">Booking</a>
+        <a href="about_us.html">About</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <center>
+        <h1>
+            <u>BOOKING PAGE</u>
+        </h1>
+        <div class="container_login">
+            <form action="confirm.html" method="post">
+                Email: <br>
+                <input type="email" name="eml" id="email_login_id" required>
+                <br><br>
+                Password: <br>
+                <input type="password" name="pass" id="pass_login_id" required>
+                <br><br>
+                First Name: <br>
+                <input type="text" name="text" id="txt_id" required>
+                <br><br>
+                Last Name: <br>
+                <input type="text" name="text" id="txt_id" required>
+                <br><br>
+                Address: <br>
+                <textarea name="address" id="address" rows="4" cols="50" required></textarea>
+                <br><br>
+                Booking Date From: <br>
+                <input type="date" name="booking_date_from" id="booking_date_from" required>
+                <br><br>
+                Booking Date To: <br>
+                <input type="date" name="booking_date_to" id="booking_date_to" required>
+                <br><br>
+                Gender: <br>
+                <label><input type="radio" name="gender" value="male" required> Male</label>
+                <label><input type="radio" name="gender" value="female"> Female</label>
+                <label><input type="radio" name="gender" value="other"> Other</label>
+                <br><br>
+                Phone Number: <br>
+                <input type="tel" name="phone" id="phone" required>
+                <br><br>
+                <input type="submit" value="Submit">
+                <input type="reset" value="reset">
+            </form>
+        </div>
+    </center>
+</body>
+
+</html>
