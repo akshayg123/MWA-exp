@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AVERAGE GRADE</title>
+</head>
+<body>
+    <h2>Enter Student Grades</h2>
+    <label for="numStudents">Number of students:</label>
+    <input type="number" id="numStudents" name="numStudents">
+    <button onclick="generateInputFields()">Generate Input Fields</button>
+    <br><br>
+    <div id="inputGrades"></div> 
+    <button onclick="calculateGrades()">Calculate Grades</button>
+    <div id="output"></div>
+
+    <script>
+        function grade(marks) {
+            if (marks > 90) {
+                return 'A';
+            } else if (marks >= 80) {
+                return 'B';
+            } else if (marks >= 70) {
+                return 'C';
+            } else if (marks >= 60) {
+                return 'D';
+            } else {
+                return 'F';
+            }
+        }
+
+        function avg(arr) {
+            let s=0;
+            for (let i=0;i<arr.length;i++) {
+                s+=arr[i];
+            }
+            return s/arr.length;
+        }
+
+        function generateInputFields() {
+            let numStudents = parseInt(document.getElementById('numStudents').value);
+            let inputGradesDiv = document.getElementById('inputGrades');
+            inputGradesDiv.innerHTML = '';
+
+            for (let i = 1; i <= numStudents; i++) {
+                inputGradesDiv.innerHTML += "<label for='student" + i + "'>Enter marks of student " + i + ":</label>";
+                inputGradesDiv.innerHTML += "<input type='number' id='student" + i + "' name='student" + i + "'><br>";
+            }
+        }
+
+        function calculateGrades() {
+            let numStudents=parseInt(document.getElementById('numStudents').value);
+            let outputDiv=document.getElementById('output');
+            outputDiv.innerHTML = ''; 
+            let grades=[];
+
+            for (let i=1;i<=numStudents;i++) {
+                let studentMarks=parseInt(document.getElementById('student' + i).value);
+                let studentGrade=grade(studentMarks);
+                outputDiv.innerHTML+="<p>Grade of student " + i + ": " + studentGrade + "</p>";
+                grades.push(studentMarks);
+            }
+            
+            let averageGrade=grade(avg(grades));
+            outputDiv.innerHTML+="<h2>Average Grade</h2>";
+            outputDiv.innerHTML+="<p>Average grade of the class: " + averageGrade + "</p>";
+        }
+    </script>
+</body>
+</html>
