@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submitted Form Data</title>
+</head>
+<body>
+    <h2>Submitted Form Data</h2>
+    <div id="formDataDisplay"></div>
+
+    <script>
+        window.onload = function() {
+            var formData = JSON.parse(decodeURIComponent(new URLSearchParams(window.location.search).get("formData")));
+            
+            document.getElementById("formDataDisplay").innerHTML = 
+                "<p>User ID: " + formData.userid + "</p>" +
+                "<p>Password: " + formData.password + "</p>" +
+                "<p>Name: " + formData.name + "</p>" +
+                "<p>Address: " + formData.address + "</p>" +
+                "<p>Country: " + formData.country + "</p>" +
+                "<p>Zip Code: " + formData.zip_code + "</p>" +
+                "<p>Email: " + formData.email + "</p>" +
+                "<p>Sex: " + formData.sex + "</p>" +
+                "<p>Language: " + formData.language + "</p>" +
+                "<p>About: " + formData.about + "</p>";
+        };
+    </script>
+</body>
+</html>
