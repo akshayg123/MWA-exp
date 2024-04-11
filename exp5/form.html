@@ -7,7 +7,7 @@
 
 <h2>Registration Form</h2>
 
-<form action="/submit.html" method="post" onsubmit="return validateForm()">
+<form action="#" method="post" onsubmit="return submitForm()">
 
   <div class="container">
     <label for="userid">User ID:</label>
@@ -28,10 +28,10 @@
     <label for="country">Country:</label>
     <select id="country" name="country" required>
       <option value="">Please select a country</option>
-      <option value="India">USA</option>
+      <option value="USA">USA</option>
       <option value="Canada">Canada</option>
       <option value="UK">UK</option>
-      <option value="Australia">India</option>
+      <option value="India">India</option>
     </select>
     <span class="error-message" id="country-error"></span><br>
 
@@ -49,7 +49,7 @@
     <input type="radio" name="sex" id="female" value="female">
     <label for="female">Female</label>
     <input type="radio" name="sex" id="other" value="other">
-    <label for="male">Other</label>
+    <label for="other">Other</label>
     <span class="error-message" id="sex-error"></span><br>
 
     <label for="language">Language:</label>
@@ -60,7 +60,7 @@
     <span class="error-message" id="language-error"></span><br>
 
     <label for="about">About:</label>
-    <textarea id="about" name="about" placeholder="Write something about yourself.." style="vertical-align: top;"></textarea>
+    <textarea id="about" name="about" placeholder="about" style="vertical-align: top;"></textarea>
     <span class="error-message" id="about-error"></span><br>
 
     <div class="submit-button">
@@ -70,80 +70,102 @@
 </form>
 
 <script>
-  function validateForm() {
-    var userid = document.getElementById("userid").value;
-    var password = document.getElementById("psw").value;
-    var name = document.getElementById("name").value;
-    var country = document.getElementById("country").value;
-    var zip = document.getElementById("zip").value;
-    var email = document.getElementById("email").value;
-    var sex = document.querySelector('input[name="sex"]:checked');
-    var language = document.querySelector('input[name="language"]:checked');
-    var about = document.getElementById("about").value;
+  function submitForm() {
+    if (validateForm()) {
+      var formData = {
+        userid: document.getElementById("userid").value,
+        password: document.getElementById("psw").value,
+        name: document.getElementById("name").value,
+        address: document.getElementById("address").value,
+        country: document.getElementById("country").value,
+        zip_code: document.getElementById("zip").value,
+        email: document.getElementById("email").value,
+        sex: document.querySelector('input[name="sex"]:checked').value,
+        language: document.querySelector('input[name="language"]:checked').value,
+        about: document.getElementById("about").value
+      };
 
-    document.getElementById("userid-error").innerHTML = "";
-    document.getElementById("psw-error").innerHTML = "";
-    document.getElementById("name-error").innerHTML = "";
-    document.getElementById("country-error").innerHTML = "";
-    document.getElementById("zip-error").innerHTML = "";
-    document.getElementById("email-error").innerHTML = "";
-    document.getElementById("sex-error").innerHTML = "";
-    document.getElementById("language-error").innerHTML = "";
-    document.getElementById("about-error").innerHTML = "";
-
-    var isValid = true;
-
-    if (userid.length < 5 || userid.length > 12) {
-      document.getElementById("userid-error").innerHTML = "User ID must be between 5 and 12 characters.";
-      isValid = false;
+      var queryString = encodeURIComponent(JSON.stringify(formData));
+      window.location.href = "/submit.html?formData=" + queryString;
     }
-
-    if (password.length < 7 || password.length > 12) {
-      document.getElementById("psw-error").innerHTML = "Password must be between 7 and 12 characters.";
-      isValid = false;
-    }
-
-    if (!/^[a-zA-Z]+$/.test(name)) {
-      document.getElementById("name-error").innerHTML = "Name must contain alphabets only.";
-      isValid = false;
-    }
-
-    if (country === "") {
-      document.getElementById("country-error").innerHTML = "Please select a country.";
-      isValid = false;
-    }
-
-    if (!/^\d+$/.test(zip)) {
-      document.getElementById("zip-error").innerHTML = "ZIP Code must contain numeric characters only.";
-      isValid = false;
-    }
-
-    if (!emailIsValid(email)) {
-      document.getElementById("email-error").innerHTML = "Invalid email address.";
-      isValid = false;
-    }
-
-    if (!sex) {
-      document.getElementById("sex-error").innerHTML = "Please select your sex.";
-      isValid = false;
-    }
-
-    if (!language) {
-      document.getElementById("language-error").innerHTML = "Please select your language.";
-      isValid = false;
-    }
-
-    if (about.length > 0 && about.length < 10) {
-      document.getElementById("about-error").innerHTML = "About must be at least 10 characters long.";
-      isValid = false;
-    }
-
-    return isValid;
+    return false; 
   }
 
-  function emailIsValid(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+function validateForm() {
+  var userid = document.getElementById("userid").value;
+  var password = document.getElementById("psw").value;
+  var name = document.getElementById("name").value;
+  var country = document.getElementById("country").value;
+  var zip = document.getElementById("zip").value;
+  var email = document.getElementById("email").value;
+  var sex = document.querySelector('input[name="sex"]:checked');
+  var language = document.querySelector('input[name="language"]:checked');
+  var about = document.getElementById("about").value;
+
+  document.getElementById("userid-error").innerHTML = "";
+  document.getElementById("psw-error").innerHTML = "";
+  document.getElementById("name-error").innerHTML = "";
+  document.getElementById("country-error").innerHTML = "";
+  document.getElementById("zip-error").innerHTML = "";
+  document.getElementById("email-error").innerHTML = "";
+  document.getElementById("sex-error").innerHTML = "";
+  document.getElementById("language-error").innerHTML = "";
+  document.getElementById("about-error").innerHTML = "";
+
+  var isValid = true;
+
+  if (userid.length < 5 || userid.length > 12) {
+    document.getElementById("userid-error").innerHTML = "User ID must be between 5 and 12 characters.";
+    isValid = false;
   }
+
+  if (password.length < 7 || password.length > 12) {
+    document.getElementById("psw-error").innerHTML = "Password must be between 7 and 12 characters.";
+    isValid = false;
+  }
+
+  if (!/^[a-zA-Z]+$/.test(name)) {
+    document.getElementById("name-error").innerHTML = "Name must contain alphabets only.";
+    isValid = false;
+  }
+
+  if (country === "") {
+    document.getElementById("country-error").innerHTML = "Please select a country.";
+    isValid = false;
+  }
+
+  if (!/^\d+$/.test(zip)) {
+    document.getElementById("zip-error").innerHTML = "ZIP Code must contain numeric characters only.";
+    isValid = false;
+  }
+
+  if (!emailIsValid(email)) {
+    document.getElementById("email-error").innerHTML = "Invalid email address.";
+    isValid = false;
+  }
+
+  if (!sex) {
+    document.getElementById("sex-error").innerHTML = "Please select your sex.";
+    isValid = false;
+  }
+
+  if (!language) {
+    document.getElementById("language-error").innerHTML = "Please select your language.";
+    isValid = false;
+  }
+
+  if (about.length > 0 && about.length < 10) {
+    document.getElementById("about-error").innerHTML = "About must be at least 10 characters long.";
+    isValid = false;
+  }
+
+  return isValid;
+}
+
+function emailIsValid(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
 </script>
 
 </body>
