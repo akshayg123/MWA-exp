@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUM OF 2 NUMBERS ON A BUTTON CLICK EVENT</title>
+</head>
+<body>
+    <input type="number" id="n1" placeholder="enter first number">
+    <input type="number" id="n2" placeholder="enter second number">
+    <button onclick="calculate_sum()">RUN</button>
+    <p id="result"></p> 
+    
+    <script>
+        function calculate_sum()
+        {
+            var n1=parseFloat(document.getElementById("n1").value);
+            var n2=parseFloat(document.getElementById("n2").value);
+            var sum=n1+n2;
+            document.getElementById("result").innerHTML="sum:"+sum;
+        }
+    </script>
+</body>
+</html>

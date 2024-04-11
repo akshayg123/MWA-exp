@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button color of a mouse</title>
+    <style>
+        #color
+        {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <button id="color">CHANGE COLOR</button>
+    <script>
+        var button=document.getElementById("color");
+        button.addEventListener("mouseover",function(){
+            button.style.color="red";
+        });
+
+        button.addEventListener("mouseout", function() {
+            button.style.backgroundColor = "green";
+        });
+    </script>
+</body>
+</html>
