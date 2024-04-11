@@ -11,7 +11,8 @@
 
     <script>
         window.onload = function() {
-            var formData = JSON.parse(decodeURIComponent(new URLSearchParams(window.location.search).get("formData")));
+            var formDataString = decodeURIComponent(new URLSearchParams(window.location.search).get("formData"));
+            var formData = JSON.parse(formDataString);
             
             document.getElementById("formDataDisplay").innerHTML = 
                 "<p>User ID: " + formData.userid + "</p>" +
