@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo List</title>
+  <style>
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Todo List</h1>
+  <input type="text" id="taskInput" placeholder="Enter task">
+  <button onclick="addTask()">Add Task</button>
+  <ul id="taskList"></ul>
+
+  <script>
+    function addTask() {
+      var taskInput = document.getElementById("taskInput");
+      var taskName = taskInput.value.trim();
+
+      if (taskName !== "") {
+        var listItem = document.createElement("li");
+        var checkBox = document.createElement("input");
+        checkBox.type = "checkbox";
+
+        var taskText = document.createElement("span");
+        taskText.textContent = taskName;
+
+        var deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+        deleteButton.onclick = function() {
+          listItem.remove();
+        };
+
+        var editButton = document.createElement("button");
+        editButton.textContent = "Edit";
+
+        editButton.onclick = function() {
+          editTask(taskText);
+        };
+
+        listItem.appendChild(checkBox);
+        listItem.appendChild(taskText);
+        listItem.appendChild(deleteButton);
+        listItem.appendChild(editButton);
+
+        document.getElementById("taskList").appendChild(listItem);
+
+        taskInput.value = "";
+      } else {
+        alert("Please enter a task!");
+      }
+    }
+
+    function editTask(taskElement) {
+      var newText = prompt("Edit task:", taskElement.textContent.trim());
+      if (newText !== null && newText.trim() !== "") {
+        taskElement.textContent = newText.trim();
+        document.getElementById("taskInput").value = newText.trim();
+      }
+    }
+
+    document.getElementById("taskList").addEventListener("change", function(event) {
+      if (event.target.tagName === "INPUT" && event.target.type === "checkbox") {
+        var listItem = event.target.parentNode;
+        if (event.target.checked) {
+          listItem.style.textDecoration = "line-through";
+        } else {
+          listItem.style.textDecoration = "none";
+        }
+      }
+    });
+  </script>
+</body>
+</html>
