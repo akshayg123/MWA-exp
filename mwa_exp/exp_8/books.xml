@@ -1,0 +1,17 @@
+<books>
+    <book>
+        <title>xml_book_1</title>
+        <author>Aadarsh </author>
+        <price>rs 909</price>
+    </book>
+    <book>
+        <title>xml_book_2</title>
+        <author>Allen</author>
+        <price>rs 453</price>
+    </book>
+    <book>
+        <title>xml_book_3</title>
+        <author>Alwin</author>
+        <price>rs 4543</price>
+    </book>
+</books>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Week 6: DOM & DOM tree manipulation</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+            }
+            table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+            th, td {
+                border: 1px solid #dddddd;
+                text-align: left;
+                padding: 8px;
+            }
+            th {
+                background-color: #f2f2f2;
+            }
+            #taskInput {
+                margin-bottom: 10px;
+            }
+            .completed {
+                text-decoration: line-through;
+                color: grey; 
+            }
+            .actionButtons button {
+                margin-right: 5px; 
+            }
+        </style>
+    </head>
+    <body>
+        <h1>To-Do List</h1>
+        <input type="text" id="taskInput" placeholder="Enter task">
+        <button onclick="addTask()">Add Task</button>
+        <table id="taskList">
+            <thead>
+                <tr><th>S.no</th><th>Mark as Completed</th><th>Task</th><th>Actions</th></tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <script>
+            let tasks = [];
+            function renderTasks() {
+                const taskTableBody = document.querySelector('#taskList tbody');
+                taskTableBody.innerHTML = '';
+                
+                tasks.forEach((task, index) => {
+                    const row = taskTableBody.insertRow();
+                    const snoCell = row.insertCell();
+                    snoCell.textContent = index + 1;
+                    const checkboxCell = row.insertCell();
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.checked = task.completed;
+                    checkbox.addEventListener('change', () => {
+                        toggleTaskCompletion(index);
+                    });
+                    checkboxCell.appendChild(checkbox);
+                    const taskCell = row.insertCell();
+                    const taskText = document.createElement('span');
+                    taskText.textContent = task.text;
+                    if (task.completed) {
+                        taskText.classList.add('completed');
+                    }
+                    taskCell.appendChild(taskText);
+                    const actionsCell = row.insertCell();
+                    const editButton = document.createElement('button');
+                    editButton.textContent = 'Edit';
+                    editButton.addEventListener('click', () => {
+                        editTask(index);
+                    });
+                    actionsCell.appendChild(editButton);
+                    const deleteButton = document.createElement('button');
+                    deleteButton.textContent = 'Delete';
+                    deleteButton.addEventListener('click', () => {
+                        deleteTask(index);
+                    });
+                    actionsCell.appendChild(deleteButton);
+                    actionsCell.classList.add('actionButtons');
+                });
+            }
+        
+            function addTask() {
+                const taskInput = document.getElementById('taskInput');
+                const taskText = taskInput.value.trim();
+                if (taskText !== '') {
+                    tasks.push({ text: taskText, completed: false });
+                    taskInput.value = '';
+                    renderTasks();
+                }
+            }
+        
+            function deleteTask(index) {
+                tasks.splice(index, 1);
+                renderTasks();}
+
+            function toggleTaskCompletion(index) {
+                tasks[index].completed = !tasks[index].completed;
+                renderTasks();}
+
+            function editTask(index) {
+                const newTaskText = prompt('Edit task:', tasks[index].text);
+                if (newTaskText !== null) {
+                    tasks[index].text = newTaskText.trim();
+                    renderTasks();}}
+                    
+            renderTasks();
+        </script>
+    </body>
+</html>

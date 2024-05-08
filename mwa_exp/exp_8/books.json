@@ -1,0 +1,19 @@
+{
+    "books": [
+        {
+            "title": "json_book_1",
+            "author": "Akshay ",
+            "price": "77 Rs"
+        },
+        {
+            "title": "json_book_2",
+            "author": "Abhay ",
+            "price": "69 Rs"
+        },
+        {
+            "title": "json_book_3",
+            "author": "Ajil ",
+            "price": "96 Rs"
+        }
+    ]
+}

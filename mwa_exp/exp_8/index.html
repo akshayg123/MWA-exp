@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BOOKS IN HTML , XML AND JSON</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+$(document).ready(function() {
+    $("#htmlButton").click(function() {
+        console.log("HTML Button Clicked");
+        $.ajax({
+            url: "books.html",
+            dataType: "html",
+            success: function(data) {
+                console.log("HTML Data Received:", data);
+                $("#result").html(data);
+            },
+            error: function(xhr, status, error) {
+                console.error("Error fetching HTML:", error);
+            }
+        });
+    });
+
+    $("#xmlButton").click(function() {
+                console.log("XML Button Clicked");
+                $.ajax({
+                    url: "/books.xml",
+                    dataType: "html",
+                    success: function(data) {
+                        console.log("XML Data Received:", data);
+                        $("#result").html(data);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error fetching XML:", error);
+                    }
+                });
+            });
+
+    $("#jsonButton").click(function() {
+        console.log("JSON Button Clicked");
+        $.ajax({
+            url: "books.json",
+            dataType: "json",
+            success: function(data) {
+                console.log("JSON Data Received:", data);
+                var result = "<ul>";
+                $.each(data.books, function(index, book) {
+                    result += "<li>Title: " + book.title + ", Author: " + book.author + ", Price: " + book.price + "</li>";
+                });
+                result += "</ul>";
+                $("#result").html(result);
+            },
+            error: function(xhr, status, error) {
+                console.error("Error fetching JSON:", error);
+            }
+        });
+    });
+});
+
+
+</script>
+</head>
+<body>
+
+<button id="htmlButton"> HTML: </button>
+<button id="xmlButton"> XML: </button>
+<button id="jsonButton"> JSON: </button>
+
+<div id="result"></div>
+
+</body>
+</html>

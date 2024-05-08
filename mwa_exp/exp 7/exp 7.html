@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Week 7: JQuery</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <hr style="color:darkgrey ; width: auto; height: 5px; background-color:darkgrey ;">
+    <div style="text-align: justify;">
+        <h5> CHANGE COLOR OF HOVER MOUSE</h5>
+    </div>
+    <button id="changecolor" class="color-button">Change Color</button>
+    <hr style="color:darkgrey ; width: auto; height: 5px; background-color:darkgrey ;">
+    <div style="text-align: justify;">
+        <h5> Implement before(),after(),prepend(),append() functions. </h5>
+    </div>
+
+    <div id="container">
+        <ul>
+            <li> item1</li>
+            <li> item2</li>
+            <li> item3</li>
+        </ul>
+    </div>
+    
+    <button id="addBefore">insert_before</button>
+    <button id="addAfter">insert_after</button>
+    <button id="addPrepend">prepend</button>
+    <button id="addAppend">append</button>
+
+    <script>
+        $(document).ready(function() {
+            $('#changecolor').mouseenter(function() {
+                $(this).css('color', 'red');
+                $(this).css('background-color', 'white');
+            });
+            $('#changecolor').mouseleave(function() {
+                $(this).css('color', 'black');
+                $(this).css('background-color', 'green');
+            });
+        });
+
+        $(document).ready(function() {
+            $('#addBefore').click(function() {
+                $('<div>item added before .</div>').insertBefore('#container');
+            });
+        
+            $('#addAfter').click(function() {
+                $('<div>item added after .</div>').insertAfter('#container');
+            });
+        
+            $('#addPrepend').click(function() {
+                $('#container ul').prepend('<li>PREPEND.</li>');
+            });
+        
+            $('#addAppend').click(function() {
+                $('#container ul').append('<li>APPEND.</li>');
+            });
+        });
+    </script>
+</body>
+</html>
