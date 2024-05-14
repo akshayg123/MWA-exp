@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sample4</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <script>
+        $(document).ready(function(){
+            $.ajax({
+                url:"https://example.com/data",
+                type:"GET",
+                success: function(response)
+                {
+                    $("#hi").html(response);
+                }
+            });
+        });
+    </script>
+    
+
+    
+
+    <div id="hi">loading...........</div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sample7</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <script>
+        $(document).ready(function(){
+            $("#gi").click(function(){
+                var x=$("#hi").val();
+                var y=$("#bye").val();
+                if(x===""||y==="")
+                {
+                    $("#demo").text("fil it first")
+                }
+                else{
+                    $("#demo").text("submission successful!!!!")
+                }
+            });
+        });
+
+
+
+
+    </script>
+
+
+    <input type="text" id="hi" placeholder="enter name">
+    <input typr="text" id="bye" placeholder="enter age">
+    <p id="demo"></p>
+    <button id="gi">click me</button>
+
+    
+</body>
+</html>

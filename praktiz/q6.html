@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sample6</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+       $(document).ready(function() {
+            function checkCheckbox() {
+                if ($("#hi").is(":checked")) {
+                    $("body").css("background-color", "green");
+                } else {
+                    $("body").css("background-color", "white");
+                }
+            }
+            $("#hi").change(function(){
+                checkCheckbox();
+            });
+            checkCheckbox();
+       });
+
+    </script>
+    
+
+    <label>check me!!!</label>
+
+</head>
+
+    
+<body>
+    <input type="checkbox" id="hi">
+</body>
+
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sample3</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <script>
+        $(document).ready(function(){
+            $("#box").click(function(){
+                $(this).slideUp(400,function(){
+                    setTimeout(function(){
+                        $("box").slideDown(400)
+                    },1000);
+                });
+            });
+        });
+
+    </script>
+
+
+
+    <style>
+         #box {
+            width: 200px;
+            height: 200px;
+            background-color: lightblue;
+            margin: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            cursor: pointer;
+        }
+    </style>
+
+
+    <div id="box">BOX</div>
+</body>
+</html>
