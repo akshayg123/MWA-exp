@@ -1,1 +1,182 @@
+//app.js
+const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const inventoryRouter = require('./routes/inventory');
+require('dotenv').config();
 
+const app = express();
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+// Connect to MongoDB
+mongoose.connect('mongodb://localhost/inventory', { useNewUrlParser: true, useUnifiedTopology: true });
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', () => console.log('Connected to MongoDB'));
+
+// Set up static files
+app.use(express.static('public'));
+
+// Routes
+app.use('/inventory', inventoryRouter);
+
+// Root route handler
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/public/index.html');
+});
+
+app.listen(3000, () => {
+  console.log('Server is running on port 3000');
+});
+
+
+//routes/inventory.js
+const express = require('express');
+const router = express.Router();
+const InventoryItem = require('../models/InventoryItem');
+
+// Create a new inventory item
+router.post('/', async (req, res) => {
+  try {
+    const { name, quantity } = req.body;
+    const newItem = new InventoryItem({ name, quantity });
+    await newItem.save();
+    res.redirect('/');
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+// Get all inventory items
+router.get('/', async (req, res) => {
+  try {
+    const items = await InventoryItem.find();
+    res.json(items);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// Update an inventory item
+router.patch('/:id', async (req, res) => {
+  try {
+    const { name, quantity } = req.body;
+    const item = await InventoryItem.findById(req.params.id);
+    if (name) item.name = name;
+    if (quantity) item.quantity = quantity;
+    await item.save();
+    res.redirect('/');
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+// Delete an inventory item
+router.delete('/:id', async (req, res) => {
+  try {
+    await InventoryItem.findByIdAndDelete(req.params.id);
+    res.redirect('/');
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+module.exports = router;
+
+//models/InventoryItem.js
+const mongoose = require('mongoose');
+
+const inventoryItemSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  quantity: { type: Number, required: true }
+});
+
+const InventoryItem = mongoose.model('InventoryItem', inventoryItemSchema);
+
+module.exports = InventoryItem;
+
+//public/index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inventory Management System</title>
+</head>
+<body>
+  <h1>Inventory Management System</h1>
+
+  <!-- Form to create a new inventory item -->
+  <form action="/inventory" method="POST">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required>
+    <label for="quantity">Quantity:</label>
+    <input type="number" id="quantity" name="quantity" required>
+    <button type="submit">Add Item</button>
+  </form>
+
+  <!-- Table to display all inventory items -->
+  <h2>Inventory Items</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Quantity</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="inventoryList">
+      <!-- Inventory items will be dynamically added here -->
+    </tbody>
+  </table>
+
+  <script>
+    // Fetch inventory items from the server and dynamically populate the table
+    fetch('/inventory')
+      .then(response => response.json())
+      .then(items => {
+        const inventoryList = document.getElementById('inventoryList');
+        items.forEach(item => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${item.name}</td>
+            <td>${item.quantity}</td>
+            <td>
+              <button onclick="updateItem('${item._id}')">Update</button>
+              <button onclick="deleteItem('${item._id}')">Delete</button>
+            </td>
+          `;
+          inventoryList.appendChild(row);
+        });
+      });
+
+    // Function to update an inventory item
+    function updateItem(id) {
+      const newName = prompt('Enter new name:');
+      const newQuantity = prompt('Enter new quantity:');
+      fetch(`/inventory/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: newName,
+          quantity: newQuantity
+        })
+      })
+      .then(() => location.reload());
+    }
+
+    // Function to delete an inventory item
+    function deleteItem(id) {
+      if (confirm('Are you sure you want to delete this item?')) {
+        fetch(`/inventory/${id}`, {
+          method: 'DELETE'
+        })
+        .then(() => location.reload());
+      }
+    }
+  </script>
+</body>
+</html>
